@@ -1,0 +1,220 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", "Roboto", Tahoma, sans-serif;
+}
+
+body {
+  padding-top: 4rem; /* mismo alto que el header */
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  background: rgb(20, 20, 20);
+  color: rgb(116, 116, 116);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  font-size: 0.8rem;
+  z-index: 100;
+}
+
+.logo {
+  margin-left: 6rem;
+  text-transform: uppercase;
+  color: #f6393b;
+  font-weight: 700;
+  font-style: normal;
+}
+
+nav {
+  padding-right: 5rem;
+}
+
+.menu a {
+  color: rgb(179, 179, 179);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 1.5rem;
+  transition: 0.4s;
+}
+
+.mostrar-menu,
+.esconder-menu {
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.4s;
+  display: none;
+}
+
+.mostrar-menu {
+  order: 1;
+}
+
+.menu a:hover,
+.mostrar-menu:hover,
+.esconder-menu:hover {
+  color: #f6393b;
+}
+
+#check {
+  display: none;
+}
+
+/*Responsive*/
+/*Para Tablet*/
+@media (max-width: 768px) {
+  .mostrar-menu,
+  .esconder-menu {
+    display: block;
+  }
+  .menu {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgb(86, 87, 87);
+    left: 0;
+    /*right: -100%;*/
+    top: 0;
+    text-align: center;
+    padding: 100px 0px;
+    z-index: 100;
+    transition: 0.8s;
+  }
+  .menu a {
+    display: block;
+    padding: 20px;
+  }
+  .esconder-menu {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.seccion1 {
+  background-color: rgb(37, 37, 37);
+  height: 70vh;
+  /* Imagen de fondo */
+  background-image: url('/src/assets/images/abs.svg');
+  background-position: top;
+  background-size: cover;
+  color: white; /* Para que el texto contrasté mejor con la imagen */
+}
+.seccion1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90vh;
+  background-color: rgba(20, 20, 20, 0.6); /* Capa opaca, ajusta el alpha para más/menos opacidad */
+}
+.deportista {
+  z-index: 10;
+  position: absolute;
+  top: 8.4rem;
+  right: 3rem;
+  width: 50%;
+  height: auto;
+  animation: slideInFromLeft 1s ease forwards;
+   /* Sombra alrededor del contorno (fondo transparente) */
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7));
+  border-radius: 8px; /* opcional */
+}
+.title1 {
+  font-size: 9rem;
+  position: relative;
+  left: -14rem;
+  animation: slideInFromLeft 0.5s ease forwards;
+  color: #ffffff;
+  /*text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 20px #000000; */
+}
+.seccion2 {
+  background-color: #727272;
+}
+#login-container {
+  position: relative;
+  top: -4rem;
+  left: -24rem;
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+#login-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: rgb(246, 57, 59); /* rojo principal */
+  font-weight: 700;
+}
+
+#login-container label {
+  display: block;
+  margin: 10px 0 5px;
+  color: rgb(58, 10, 10); /* rojo oscuro para texto */
+}
+
+#login-container input[type="text"],
+#login-container input[type="password"] {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 15px;
+  border: 1px solid rgb(179, 57, 59); /* borde rojo */
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+#login-container input[type="text"]:focus,
+#login-container input[type="password"]:focus {
+  outline: 2px solid rgb(246, 57, 59); /* foco rojo */
+}
+
+#login-container button {
+  width: 100%;
+  background-color: rgb(246, 57, 59); /* botón rojo principal */
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+#login-container button:hover {
+  background-color: rgb(179, 26, 26); /* rojo oscuro en hover */
+}
+
+#login-container .forgot-password {
+  text-align: right;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+#login-container .forgot-password a {
+  color: rgb(179, 57, 59); /* rojo secundario */
+  text-decoration: none;
+}
+
+#login-container .forgot-password a:hover {
+  text-decoration: underline;
+}
