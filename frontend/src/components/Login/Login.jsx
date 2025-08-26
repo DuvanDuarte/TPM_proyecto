@@ -7,6 +7,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [loginSuccesful, setLoginSuccesful] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const toggleForm = () => setShowForm(prev => !prev);
 
   const handdleLogin = (e) => {
     e.preventDefault();
@@ -64,38 +66,52 @@ const Login = () => {
         </section>
 
         <section id="IniciarSesion" className="seccion2">
-          <div id="login-container">
-            <h2>Iniciar Sesión</h2>
-            <form onSubmit={handdleLogin} action="/login" method="post">
-              <label htmlFor="username">Usuario</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                required
-                placeholder="Ingrese su usuario"
-              />
+          <button onClick={toggleForm} className="login-toggle-button">
+            Iniciar Sesión
+          </button>
+          {showForm && (
+            <div className="modal-backdrop" onClick={toggleForm}>
+              <div
+                className="login-form-container"
+                onClick={e => e.stopPropagation()} // evitar cerrar al click dentro del form
+              >
+                <h2>Iniciar Sesión</h2>
+                <form
+                  action="/login"
+                  method="post"
+                  onSubmit={handdleLogin}
+                >
+                  <label htmlFor="username">Usuario</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                    required
+                    placeholder="Ingrese su usuario"
+                  />
 
-              <label htmlFor="password">Contraseña</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-                placeholder="Ingrese su contraseña"
-              />
+                  <label htmlFor="password">Contraseña</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    required
+                    placeholder="Ingrese su contraseña"
+                  />
 
-              <div className="forgot-password">
-                <a href="#">¿Olvidaste tu contraseña?</a>
+                  <div className="forgot-password">
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                  </div>
+
+                  <button type="submit" className="submit-button">Entrar</button>
+                </form>
               </div>
-
-              <button type="submit">Entrar</button>
-            </form>
-          </div>
+            </div>
+          )}
         </section>
       </>
     )}

@@ -4,10 +4,6 @@
   font-family: "Rubik", "Roboto", Tahoma, sans-serif;
 }
 
-body {
-  padding-top: 4rem; /* mismo alto que el header */
-}
-
 header {
   position: fixed;
   top: 0;
@@ -106,6 +102,7 @@ section {
 }
 
 .seccion1 {
+  padding-top: 4rem; /* mismo alto que el header */
   background-color: rgb(37, 37, 37);
   height: 70vh;
   /* Imagen de fondo */
@@ -143,78 +140,152 @@ section {
   color: #ffffff;
   /*text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 20px #000000; */
 }
+/*Sección del login*/
 .seccion2 {
   background-color: #727272;
 }
-#login-container {
+.login-toggle-button {
   position: relative;
-  top: -4rem;
-  left: -24rem;
-  background-color: white;
-  padding: 20px 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-}
-
-#login-container h2 {
-  margin-bottom: 20px;
-  text-align: center;
-  color: rgb(246, 57, 59); /* rojo principal */
-  font-weight: 700;
-}
-
-#login-container label {
-  display: block;
-  margin: 10px 0 5px;
-  color: rgb(58, 10, 10); /* rojo oscuro para texto */
-}
-
-#login-container input[type="text"],
-#login-container input[type="password"] {
-  width: 100%;
-  padding: 8px 10px;
-  margin-bottom: 15px;
-  border: 1px solid rgb(179, 57, 59); /* borde rojo */
-  border-radius: 4px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-#login-container input[type="text"]:focus,
-#login-container input[type="password"]:focus {
-  outline: 2px solid rgb(246, 57, 59); /* foco rojo */
-}
-
-#login-container button {
-  width: 100%;
-  background-color: rgb(246, 57, 59); /* botón rojo principal */
+  top: -3rem;
+  left: -20rem;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 3rem;
+  background-color: #e63946;
   color: white;
-  padding: 10px 0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  overflow: visible;
+}
+
+.login-toggle-button:hover {
+  background-color: #b92732;
+}
+
+/* Contenedor para partículas */
+.login-toggle-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 0.2rem;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Partículas individuales */
+.login-toggle-button:hover::before {
+  animation: particleBurst 0.3s forwards;
+}
+
+@keyframes particleBurst {
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 1;
+    box-shadow:
+       0 -40px 0 0 #b92732,
+       6rem -40px 0 0 #b92732,
+       6rem 40px 0 0 #b92732,
+       0 40px 0 0 #b92732,
+       -6rem 40px 0 0 #b92732,
+       -6rem -40px 0 0 #b92732;
+  }
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease forwards;
+  z-index: 1000;
+}
+
+.login-form-container {
+  background-color: #272727;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+  animation: slideDown 0.4s ease forwards;
+  width: 320px;
+  color: white;
+}
+
+.login-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form-container label {
+  margin-top: 15px;
+  margin-bottom: 6px;
+}
+
+.login-form-container input {
+  padding: 10px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+  outline: none;
+}
+
+.submit-button {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #e63946;
+  color: white;
   font-weight: 700;
-  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-#login-container button:hover {
-  background-color: rgb(179, 26, 26); /* rojo oscuro en hover */
+.submit-button:hover {
+  background-color: #b92732;
 }
 
-#login-container .forgot-password {
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.forgot-password {
+  margin-top: 12px;
   text-align: right;
-  font-size: 12px;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  font-size: 0.9rem;
 }
 
-#login-container .forgot-password a {
-  color: rgb(179, 57, 59); /* rojo secundario */
+.forgot-password a {
+  color: #e63946; /* color rojo vibrante */
   text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-#login-container .forgot-password a:hover {
+.forgot-password a:hover,
+.forgot-password a:focus {
+  color: #b92732; /* rojo más oscuro */
   text-decoration: underline;
+  outline: none;
 }

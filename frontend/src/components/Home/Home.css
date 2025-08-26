@@ -1,0 +1,104 @@
+.container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Rubik', sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #141414;
+    color: #e63946;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-title {
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.logout-button {
+    background-color: #e63946;
+    border: none;
+    padding: 1rem;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 2rem;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #b92732;
+}
+
+.main-content {
+    flex-grow: 1;
+    background-color: #272727;
+    padding: 2rem;
+    color: white;
+    overflow-y: auto;
+}
+
+/*Dashboard css*/
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  gap: 30px;
+  padding: 10px 0;
+}
+
+.card {
+  background-color: #383838;
+  border-radius: 10px;
+  padding: 30px 25px;
+  color: white;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.6);
+}
+
+.personal-info-card {
+  background-color: #1f1f1f;
+}
+
+.summary-card {
+  background-color: #2a2a2a;
+}
+
+.add-training-card {
+  background-color: #e63946;
+  color: white;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-training-button {
+  margin-top: 15px;
+  background-color: white;
+  border: none;
+  padding: 12px 24px;
+  color: #e63946;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-training-button:hover {
+  background-color: #b92732;
+  color: white;
+}
