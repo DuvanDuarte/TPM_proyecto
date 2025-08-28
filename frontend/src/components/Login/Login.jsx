@@ -1,7 +1,7 @@
 import Home from "../Home/Home";
 import "./Login.css";
 import "../../../src/animations.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -9,6 +9,14 @@ const Login = () => {
   const [loginSuccesful, setLoginSuccesful] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(prev => !prev);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen(prev => !prev);
+  const closeMenu = () => setMenuOpen(false);
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    console.log("userRole cambió a:", userRole);
+  }, [userRole]);
 
   const handdleLogin = (e) => {
     e.preventDefault();
@@ -18,45 +26,53 @@ const Login = () => {
     };
     fetch("http://localhost:5000/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.token);
+        console.log("Token:", result.token);
 
         if (result.token) {
           localStorage.setItem("token", result.token);
-          setLoginSuccesful(true);
+
+          const decoded = parseJwt(result.token);
+          console.log("Datos decodificados del token:", decoded); // <-- Aquí imprimes todo el contenido
+          setUserRole(decoded?.idRol || null);
+
+          if (decoded?.idRol) {
+            console.log("Rol válido, login exitoso:", decoded.role);
+            setLoginSuccesful(true);
+          } else {
+            console.log("Rol inválido o no encontrado");
+            setLoginSuccesful(false);
+          }
         } else {
           setLoginSuccesful(false);
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(console.error);
   };
 
   return (
-    <>{loginSuccesful ? (<Home />
-
+    <>
+      {loginSuccesful ? (
+        <Home userRole={userRole} />
     ) : (
       <>
         <header>
           <h2 className="logo">TM-Pro</h2>
           <input type="checkbox" id="check" />
-          <label htmlFor="check" className="mostrar-menu">
+          <span className="mostrar-menu" onClick={toggleMenu}>
             &#8801;
-          </label>
-          <nav className="menu">
-            <a href="#">Inicio</a>
-            <a href="#">Contacto</a>
-            <a href="#IniciarSesion">Iniciar Sesion</a>
-            <label htmlFor="check" className="esconder-menu">
+          </span>
+          <nav className={`menu ${menuOpen ? "open" : ""}`}>
+            <a href="#" onClick={closeMenu}>Inicio</a>
+            <a href="#" onClick={closeMenu}>Contacto</a>
+            <a href="#IniciarSesion" onClick={closeMenu}>Iniciar Sesion</a>
+            <span className="esconder-menu" onClick={closeMenu}>
               &#215;
-            </label>
+            </span>
           </nav>
         </header>
 
@@ -119,5 +135,27 @@ const Login = () => {
   );
 };
 
+function parseJwt(token) {
+  if (!token) return null;
+
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.error("Error parsing JWT:", e);
+    return null;
+  }
+}
 
 export default Login;

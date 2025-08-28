@@ -16,8 +16,8 @@ header {
   justify-content: space-between;
   align-items: center;
   font-weight: 500;
-  letter-spacing: 0.1rem;
   font-size: 0.8rem;
+  letter-spacing: 0.1rem;
   z-index: 100;
 }
 
@@ -31,6 +31,23 @@ header {
 
 nav {
   padding-right: 5rem;
+}
+.menu {
+  /* estilos base */
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: rgb(86, 87, 87);
+  left: -100%;
+  top: 0;
+  text-align: center;
+  padding: 100px 0;
+  z-index: 100;
+  transition: left 0.8s;
+}
+
+.menu.open {
+  left: 0;
 }
 
 .menu a {
@@ -69,23 +86,24 @@ nav {
   .mostrar-menu,
   .esconder-menu {
     display: block;
+    padding-right: 1rem;
+  }
+
+  .menu a {
+    display: block;
+    padding: 20px;
   }
   .menu {
     position: fixed;
     width: 100%;
     height: 100vh;
     background: rgb(86, 87, 87);
-    left: 0;
-    /*right: -100%;*/
+    left: -100%; /* Oculto inicialmente */
     top: 0;
     text-align: center;
     padding: 100px 0px;
     z-index: 100;
-    transition: 0.8s;
-  }
-  .menu a {
-    display: block;
-    padding: 20px;
+    transition: left 0.8s;
   }
   .esconder-menu {
     position: absolute;
@@ -188,12 +206,12 @@ section {
     transform: translate(-50%, -50%) scale(1.5);
     opacity: 1;
     box-shadow:
-       0 -40px 0 0 #b92732,
-       6rem -40px 0 0 #b92732,
-       6rem 40px 0 0 #b92732,
-       0 40px 0 0 #b92732,
-       -6rem 40px 0 0 #b92732,
-       -6rem -40px 0 0 #b92732;
+       0 -40px 0 0 #ffffff,
+       6rem -40px 0 0 #ffffff,
+       6rem 40px 0 0 #ffffff,
+       0 40px 0 0 #ffffff,
+       -6rem 40px 0 0 #ffffff,
+       -6rem -40px 0 0 #ffffff;
   }
 }
 
@@ -288,4 +306,68 @@ section {
   color: #b92732; /* rojo más oscuro */
   text-decoration: underline;
   outline: none;
+}
+
+@media (max-width: 480px) {
+  .logo {
+    margin-left: 1rem;
+    font-size: 1rem;
+    padding-left: 1rem;
+  }
+
+  header {
+    height: 3.5rem;
+    font-size: 0.5rem;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  .menu a {
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .seccion1 {
+    display: flex;
+    flex-direction: column;     
+    justify-content: center;    
+    align-items: center;        
+    height: 70vh;              
+    margin-top: 3rem;
+    background-position: center;
+  }
+
+  .title1 {
+    position: static;           /* elimina position absolute/relative */
+    left: auto;                 /* elimina desplazamiento */
+    font-size: 3rem;
+    margin: -4rem 0 1rem 0;
+    text-align: center;
+  }
+
+  .deportista {
+   position: static;           /* elimina position absolute */
+    top: auto;                  /* no desplazamiento */
+    right: auto;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 8px;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.7));
+  }
+
+  .login-toggle-button {
+    font-size: 2rem;
+    top: -14rem;
+    left: 0;
+    margin: 1rem auto;
+    display: block;
+  }
+
+  .forgot-password {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 8px;
+  }
 }
