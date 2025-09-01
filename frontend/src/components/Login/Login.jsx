@@ -38,10 +38,12 @@ const Login = () => {
 
           const decoded = parseJwt(result.token);
           console.log("Datos decodificados del token:", decoded); // <-- Aquí imprimes todo el contenido
-          setUserRole(decoded?.idRol || null);
 
-          if (decoded?.idRol) {
-            console.log("Rol válido, login exitoso:", decoded.role);
+          const roleName = roleMap[decoded?.idRol] || null; // Convertir número a texto
+          setUserRole(roleName);
+
+          if (roleName) {
+            console.log("Rol válido, login exitoso:", roleName);
             setLoginSuccesful(true);
           } else {
             console.log("Rol inválido o no encontrado");
@@ -157,5 +159,11 @@ function parseJwt(token) {
     return null;
   }
 }
+
+const roleMap = {
+  1: "Admin",
+  2: "Entrenador",
+  3: "Deportista"
+};
 
 export default Login;

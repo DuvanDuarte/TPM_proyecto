@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./Home.css";
-import Dashboard from "../Entrenador Panel/Dashboard";
+import E_Dashboard from "../Entrenador Panel/E_Dashboard";
+import A_Dashboard from "../Admin Panel/A_Dashboard";
 import Athletes from "../Entrenador Panel/Athletes";
 import Schedule from "../Entrenador Panel/Schedule";
 import Reports from "../Entrenador Panel/Reports";
+import Profile from "../Profile/Profile";
 
 const Home = ({ userRole }) => {
     const [activePanel, setActivePanel] = useState("dashboard");
@@ -26,7 +28,7 @@ const Home = ({ userRole }) => {
                     </button>
                 ))}
                 {/* Botón cerrar sesión abajo */}
-                <button onClick={() => { localStorage.removeItem("token"), window.location.reload()}} className="logout-button">
+                <button onClick={() => { localStorage.removeItem("token"), window.location.reload() }} className="logout-button">
                     Cerrar sesión
                 </button>
             </nav>
@@ -52,16 +54,19 @@ const navButtonStyle = (active) => ({
 });
 
 const userPanels = {
-    admin: [
-        { key: "dashboard", label: "Dashboard", component: <Dashboard /> }
+    Admin: [
+        { key: "profile", label: "Profile", component: <Profile /> },
+        { key: "dashboard", label: "Dashboard", component: <A_Dashboard /> },
+        { key: "schedule", label: "Horarios", component: <Schedule /> },
+        { key: "athletes", label: "Deportistas", component: <Athletes /> },
         // más opciones admin
     ],
-    coach: [
-        { key: "dashboard", label: "Dashboard", component: <Dashboard /> },
+    Entrenador: [
+        { key: "dashboard", label: "Dashboard", component: <E_Dashboard /> },
         { key: "athletes", label: "Deportistas", component: <Athletes /> },
     ],
-    athlete: [
-        { key: "dashboard", label: "Dashboard", component: <Dashboard /> },
+    Deportista: [
+        { key: "dashboard", label: "Dashboard", component: <E_Dashboard /> },
         { key: "schedule", label: "Horarios", component: <Schedule /> },
     ]
 };

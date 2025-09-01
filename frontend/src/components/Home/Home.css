@@ -67,10 +67,11 @@
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 14px 30px rgba(0,0,0,0.6);
+  background-color: #9B2B32;
 }
 
 .personal-info-card {
-  background-color: #1f1f1f;
+  background-color: #54151A;
 }
 
 .summary-card {

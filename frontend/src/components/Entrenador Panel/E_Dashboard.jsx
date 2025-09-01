@@ -1,17 +1,11 @@
 import React from "react";
 
-const Dashboard = () => {
+const E_Dashboard = () => {
   return (
     <>
       <h1>Dashboard</h1>
 
       <div className="dashboard-container">
-        <div className="card personal-info-card">
-          <h2>Información Personal</h2>
-          <p>Nombre: Juan Pérez</p>
-          <p>Email: juan.perez@example.com</p>
-          <p>Teléfono: +123 456 7890</p>
-        </div>
 
         <div className="card summary-card">
           <h2>Deportistas a Cargo</h2>
@@ -35,4 +29,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default E_Dashboard;
