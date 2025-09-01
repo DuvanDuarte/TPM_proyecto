@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Home.css";
 import E_Dashboard from "../Entrenador Panel/E_Dashboard";
 import A_Dashboard from "../Admin Panel/A_Dashboard";
+import D_Dashboard from "../Deportista Panel/D_Dashboard";
 import Athletes from "../Entrenador Panel/Athletes";
 import Schedule from "../Entrenador Panel/Schedule";
 import Reports from "../Entrenador Panel/Reports";
@@ -62,11 +63,13 @@ const userPanels = {
         // más opciones admin
     ],
     Entrenador: [
+        { key: "profile", label: "Profile", component: <Profile /> },
         { key: "dashboard", label: "Dashboard", component: <E_Dashboard /> },
         { key: "athletes", label: "Deportistas", component: <Athletes /> },
     ],
     Deportista: [
-        { key: "dashboard", label: "Dashboard", component: <E_Dashboard /> },
+        { key: "profile", label: "Profile", component: <Profile /> },
+        { key: "dashboard", label: "Dashboard", component: <D_Dashboard /> },
         { key: "schedule", label: "Horarios", component: <Schedule /> },
     ]
 };

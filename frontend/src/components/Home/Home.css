@@ -78,6 +78,37 @@
   background-color: #2a2a2a;
 }
 
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.summary-icon {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+}
+
+.summary-icon .material-symbols-outlined {
+  font-size: 2rem;
+}
+
+.summary-growth {
+  color: #39ABE6; /* azul TM-Pro para contraste, o usa verde si prefieres */
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.summary-count {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
 .add-training-card {
   background-color: #e63946;
   color: white;

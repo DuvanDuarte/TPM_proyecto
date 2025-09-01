@@ -8,10 +8,14 @@ const A_Dashboard = () => {
       <div className="dashboard-container">
 
         <div className="card summary-card">
+          <div className="summary-header">
+            <div className="summary-icon">
+              <span class="material-symbols-outlined">sprint</span>
+            </div>
+            <div className="summary-growth">+12%</div>
+          </div>
           <h2>Total Deportistas</h2>
-          <p>Total Deportistas: 12</p>
-          <p>Promedio de edad: 21 años</p>
-          {/* Aquí podrías añadir más datos o estadísticos */}
+          <p className="summary-count">248</p>
         </div>
 
         <div className="card summary-card">
