@@ -1,0 +1,84 @@
+.calendarT{
+  margin-top: 3rem;
+}
+
+/* Contenedor de la cuadrícula del calendario: 7 columnas para 7 días */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  max-width: 20rem;
+}
+
+/* Encabezados de día (Domingo, Lunes, ...) */
+.calendar-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 2rem 0 0 0;
+}
+
+/* Cada celda/día del calendario */
+.calendar-day {
+  border: 1px solid var(--TM-Pro-5-c);
+  min-height: 70px;
+  padding: 4px;
+  font-size: 14px;
+  background-color: #646464;
+  min-width: 8rem;
+}
+
+/* Estilo para el día actual (hoy), fondo amarillo claro */
+.calendar-day.today {
+  background-color: var(--TM-Pro-1-o);
+}
+
+.empty {
+  background-color: var(--TM-Pro-55-o);
+  border: none;
+}
+
+/* Número del día destacado en negrita */
+.date-number {
+  font-weight: bold;
+}
+
+/* Estilo para cada evento dentro de un día */
+.event {
+  background-color: var(--TM-Pro-1-c);
+  color: white;
+  border-radius: 4px;
+  margin-top: 4px;
+  padding: 2px 6px;
+  font-size: 0.75em;
+}
+
+/* Botones para cambio de mes */
+button {
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  background-color: var(--TM-Pro-1-c);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--TM-Pro-1-o);
+}
+
+/* Contenedor de botones y título mes */
+.month-selector {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  background-color: var(--TM-Pro-1-o);
+  padding: 1rem;
+}
+
+.month-selector h2 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}

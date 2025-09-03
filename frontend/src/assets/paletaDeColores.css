@@ -1,21 +1,27 @@
-/* Colores Normales */
-.TM-Pro-1-n { color: #9B2B32; }
-.TM-Pro-2-n { color: #FF7F11; }
-.TM-Pro-3-n { color: #E63948; }
-.TM-Pro-4-n { color: #CC600D; }
-.TM-Pro-5-n { color: #F7E14B; }
-.TM-Pro-5-n { color: #E6D843; }
+:root {
+  /* Colores Normales */
+  --TM-Pro-1-n: #9B2B32;
+  --TM-Pro-2-n: #FF7F11;
+  --TM-Pro-3-n: #E63948;
+  --TM-Pro-4-n: #CC600D;
+  --TM-Pro-5-n: #F7E14B;
+  --TM-Pro-6-n: #E6D843;
 
-/*Colores Oscuros*/
-.TM-Pro-1-o { color: #0E2837; }
-.TM-Pro-2-o { color: #37360E; }
-.TM-Pro-3-o { color: #54151A; }
-.TM-Pro-4-o { color: #3C2224; }
-.TM-Pro-5-o { color: #22292D; }
+  /* Colores Oscuros */
+  --TM-Pro-1-o: #0E2837;
+  --TM-Pro-2-o: #37360E;
+  --TM-Pro-3-o: #54151A;
+  --TM-Pro-33-o: #141011;
+  --TM-Pro-4-o: #3C2224;
+  --TM-Pro-5-o: #22292D;
+  --TM-Pro-55-o: #171c1f;
 
-/*Colores claros*/
-.TM-Pro-4-c { color: #CC767D; }
-.TM-Pro-5-c { color: #A4C7DB; }
+  /* Colores Claros */
+  --TM-Pro-1-c: #2da6aa;
+  --TM-Pro-4-c: #CC767D;
+  --TM-Pro-5-c: #A4C7DB;
+}
+
 
 
 

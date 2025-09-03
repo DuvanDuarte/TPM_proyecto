@@ -6,7 +6,7 @@
 
 .sidebar {
     width: 250px;
-    background-color: #141414;
+    background-color: var(--TM-Pro-33-o);
     color: #e63946;
     padding: 20px;
     display: flex;
@@ -37,7 +37,7 @@
 
 .main-content {
     flex-grow: 1;
-    background-color: #272727;
+    background-color: var(--TM-Pro-55-o);
     padding: 2rem;
     color: white;
     overflow-y: auto;
@@ -45,23 +45,20 @@
 
 /*Dashboard css*/
 .dashboard-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-  gap: 30px;
-  padding: 10px 0;
+  padding: 2rem;
 }
 
 .card {
-  background-color: #383838;
+  background-color: var(--TM-Pro-5-o);
   border-radius: 10px;
-  padding: 30px 25px;
+  padding: 2rem 2rem;
   color: white;
   box-shadow: 0 6px 15px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 200px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 15rem;  /* ancho mínimo deseado */
 }
 
 .card:hover {
@@ -70,12 +67,16 @@
   background-color: #9B2B32;
 }
 
+.card h1{
+  margin-bottom: 1rem;
+}
+
 .personal-info-card {
   background-color: #54151A;
 }
 
 .summary-card {
-  background-color: #2a2a2a;
+  background-color: var(--TM-Pro-5-o);
 }
 
 .summary-header {
@@ -86,7 +87,7 @@
 }
 
 .summary-icon {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #ffffff1a;
   padding: 8px;
   border-radius: 8px;
   display: flex;
@@ -97,16 +98,9 @@
 }
 
 .summary-growth {
-  color: #39ABE6; /* azul TM-Pro para contraste, o usa verde si prefieres */
+  color: var(--TM-Pro-1-c); /* azul TM-Pro para contraste, o usa verde si prefieres */
   font-weight: 800;
   font-size: 1rem;
-}
-
-.summary-count {
-  font-weight: 700;
-  font-size: 2rem;
-  margin-top: 1rem;
-  margin-bottom: 0;
 }
 
 .add-training-card {
@@ -116,6 +110,8 @@
   text-align: center;
   font-weight: 700;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-training-button {

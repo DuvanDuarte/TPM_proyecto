@@ -4,9 +4,10 @@ import E_Dashboard from "../Entrenador Panel/E_Dashboard";
 import A_Dashboard from "../Admin Panel/A_Dashboard";
 import D_Dashboard from "../Deportista Panel/D_Dashboard";
 import Athletes from "../Entrenador Panel/Athletes";
-import Schedule from "../Entrenador Panel/Schedule";
+import Schedule from "../Admin Panel/Schedule";
 import Reports from "../Entrenador Panel/Reports";
 import Profile from "../Profile/Profile";
+import Users from "../Admin Panel/Users";
 
 const Home = ({ userRole }) => {
     const [activePanel, setActivePanel] = useState("dashboard");
@@ -56,10 +57,10 @@ const navButtonStyle = (active) => ({
 
 const userPanels = {
     Admin: [
-        { key: "profile", label: "Profile", component: <Profile /> },
-        { key: "dashboard", label: "Dashboard", component: <A_Dashboard /> },
-        { key: "schedule", label: "Horarios", component: <Schedule /> },
-        { key: "athletes", label: "Deportistas", component: <Athletes /> },
+        { key: "profile", label: "Datos Personales", component: <Profile /> },
+        { key: "dashboard", label: "Panel de Control", component: <A_Dashboard /> },
+        { key: "schedule", label: "Cronograma", component: <Schedule /> },
+        { key: "users", label: "Usuarios", component: <Users /> },
         // más opciones admin
     ],
     Entrenador: [
