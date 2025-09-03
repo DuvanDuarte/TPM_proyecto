@@ -62,11 +62,6 @@ const cardsData = [
     content: (
       <>
         <p>Total: 248</p>
-        <p>
-          Lesionados: 5 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Minima impedit minus possimus illum non esse quas illo perspiciatis
-          quisquam cupiditate?
-        </p>
       </>
     ),
   },
@@ -83,85 +78,6 @@ const cardsData = [
     content: <p>Total: 6</p>,
   },
   {
-    icon: "calendar_month",
-    growth: "+4%",
-    title: "Eventos",
-    content: (
-      <>
-        <p>Totales: 6</p>
-        <p>Este mes: 2</p>
-      </>
-    ),
-  },
-  {
-    icon: "drop",
-    growth: "+4%",
-    title: "NN",
-    content: (
-      <>
-        <p>Total: 6</p>
-        <p>
-          Lesionados: 5 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Minima impedit minus possimus illum non esse quas illo perspiciatis
-          quisquam cupiditate?
-        </p></>
-    ),
-  },
-  {
-    icon: "drop",
-    growth: "+4%",
-    title: "NN",
-    content: (
-      <>
-        <p>Total: 6</p>
-        <p>
-          Lesionados: 5 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis soluta, repellat tempore vero placeat tempora in nisi, animi debitis quaerat voluptatem sint, numquam est ad officia atque. Omnis distinctio assumenda rem deserunt alias, animi nobis fugit iste excepturi repellat molestiae voluptas enim maxime ut harum officiis ducimus, vero exercitationem quasi! Porro molestias ipsam autem tempora nulla nobis in ab illum, natus vitae minima consectetur blanditiis necessitatibus ducimus saepe ratione aspernatur alias non possimus voluptatum dolor dolore. Sunt, aliquam non dolorem eaque, nihil recusandae aliquid rem commodi iure, fugiat blanditiis minima sit ipsam reprehenderit architecto pariatur maiores id explicabo beatae eos!
-        </p></>
-    ),
-  },
-  {
-    icon: "calendar_month",
-    growth: "+4%",
-    title: "Eventos",
-    content: (
-      <>
-        <p>Totales: 6</p>
-        <p>Este mes: 2</p>
-      </>
-    ),
-  },
-  {
-    icon: "calendar_month",
-    growth: "+4%",
-    title: "Eventos",
-    content: (
-      <>
-        <p>Totales: 6</p>
-        <p>Este mes: 2</p>
-      </>
-    ),
-  },
-  {
-    icon: "calendar_month",
-    growth: "+4%",
-    title: "Eventos",
-    content: (
-      <>
-        <p>Totales: 6</p>
-        <p>Este mes: 2</p>
-      </>
-    ),
-  },{
-    icon: "calendar_month",
-    growth: "+4%",
-    title: "Eventos",
-    content: (
-      <>
-        <p>Totales: 6</p>
-        <p>Este mes: 2</p>
-      </>
-    ),
-  },{
     icon: "calendar_month",
     growth: "+4%",
     title: "Eventos",
