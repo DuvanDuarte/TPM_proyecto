@@ -2,11 +2,11 @@ const connection = require('../models/db')
 const jwt = require('jsonwebtoken')
 
 module.exports.login = (req, res) => {
-    const { username, password } = req.body;
-    const consult = 'SELECT * FROM usuarios WHERE email = ? AND pass = ?';
+    const { documento, password } = req.body;
+    const consult = 'SELECT * FROM usuarios WHERE documento = ? AND password = ?';
 
     try {
-        connection.query(consult, [username, password], (err, result) => {
+        connection.query(consult, [documento, password], (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }

@@ -1,10 +1,50 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { roleMap } from "../../utils/roles";
 
 const A_Dashboard = () => {
   const [showForm, setShowForm] = useState(false);
+  const [userCounts, setUserCounts] = useState({});
   const toggleForm = () => setShowForm(prev => !prev);
+
+  useEffect(() => {
+    // Reemplaza '/api/users' con tu URL real del backend
+    fetch("http://localhost:5000/users")
+      .then((res) => res.json())
+      .then((users) => {
+        const counts = {};
+        users.forEach((user) => {
+          const roleName = roleMap[user.idTipoUsuario];
+          counts[roleName] = (counts[roleName] || 0) + 1;
+        });
+        setUserCounts(counts);
+      })
+      .catch((err) => console.error("Error fetching users:", err));
+  }, []);
+
+  const cardsData = [
+    {
+      id: 1, icon: "sprint", growth: "+12%", title: "Deportistas",
+      content: <p>Total: {userCounts["Deportista"] || 0}</p>,
+    },
+    {
+      id: 2, icon: "exercise", growth: "+12%", title: "Entrenadores",
+      content: <p>Total: {userCounts["Entrenador"] || 0}</p>,
+    },
+    {
+      id: 3, icon: "clinical_notes", growth: "+4%", title: "Profesionales",
+      content: <p>Total: {userCounts["Profesional"] || 0}</p>,
+    },
+    {
+      id: 4, icon: "calendar_month", growth: "+4%", title: "Eventos",
+      content: (
+        <>
+          <p>Totales: 6</p>
+          <p>Este mes: 2</p>
+        </>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -14,8 +54,8 @@ const A_Dashboard = () => {
 
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry gutter="30px">
-            {cardsData.map((card, idx) => (
-              <div key={idx} className="card summary-card">
+            {cardsData.map(card => (
+              <div key={card.id} className="card summary-card">
                 <div className="summary-header">
                   <div className="summary-icon">
                     <span className="material-symbols-outlined">{card.icon}</span>
@@ -54,40 +94,6 @@ const A_Dashboard = () => {
   );
 };
 
-const cardsData = [
-  {
-    icon: "sprint",
-    growth: "+12%",
-    title: "Deportistas",
-    content: (
-      <>
-        <p>Total: 248</p>
-      </>
-    ),
-  },
-  {
-    icon: "exercise",
-    growth: "+12%",
-    title: "Entrenadores",
-    content: <p>Total: 11</p>,
-  },
-  {
-    icon: "clinical_notes",
-    growth: "+4%",
-    title: "Profesionales",
-    content: <p>Total: 6</p>,
-  },
-  {
-    icon: "calendar_month",
-    growth: "+4%",
-    title: "Eventos",
-    content: (
-      <>
-        <p>Totales: 6</p>
-        <p>Este mes: 2</p>
-      </>
-    ),
-  },
-];
+
 
 export default A_Dashboard;

@@ -1,0 +1,32 @@
+.users-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1rem; /* espacio vertical entre filas */
+}
+
+.users-table thead th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  color: var(--TM-Pro-1-c); /* Puedes usar otro color azul TM-Pro */
+  font-weight: 700;
+  border-bottom: 1px solid var(--TM-Pro-5-o);
+}
+
+.users-table tbody tr {
+  background-color: var(--TM-Pro-5-o);
+  border-radius: 10px;
+  box-shadow: 0 6px 15px #00000066;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 15rem;
+}
+
+.users-table tbody tr td {
+  padding: 1rem;
+  color: white;
+}
+
+.users-table tbody tr:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+  background-color: var(--TM-Pro-1-c);
+}

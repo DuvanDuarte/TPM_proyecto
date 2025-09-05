@@ -43,6 +43,7 @@ const Calendar = () => {
     return (
         <>
             <h1 className="calendarT">Calendario</h1>
+            <p>Entrenamientos y eventos programados en el mes</p>
 
             <div className="month-selector">
                 <button onClick={prevMonth}>&lt; Mes anterior</button>

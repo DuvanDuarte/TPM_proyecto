@@ -2,14 +2,15 @@ import Home from "../Home/Home";
 import "./Login.css";
 import "../../../src/assets/animations.css"
 import { useState, useEffect } from "react";
+import { roleMap } from '../../utils/roles';
 
 const Login = () => {
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [loginSuccesful, setLoginSuccesful] = useState(false);
+  const [documento, setDocumento] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [loginSuccesful, setLoginSuccesful] = useState(false);
   const toggleForm = () => setShowForm(prev => !prev);
   const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
@@ -21,7 +22,7 @@ const Login = () => {
   const handdleLogin = (e) => {
     e.preventDefault();
     const data = {
-      username: username,
+      documento: documento,
       password: password,
     };
     fetch("http://localhost:5000/login", {
@@ -99,15 +100,15 @@ const Login = () => {
                     method="post"
                     onSubmit={handdleLogin}
                   >
-                    <label htmlFor="username">Usuario</label>
+                    <label htmlFor="documento">Documento</label>
                     <input
                       type="text"
-                      id="username"
-                      name="username"
-                      value={username}
-                      onChange={(event) => setUsername(event.target.value)}
+                      id="documento"
+                      name="documento"
+                      value={documento}
+                      onChange={(event) => setDocumento(event.target.value)}
                       required
-                      placeholder="Ingrese su usuario"
+                      placeholder="Ingrese su documento"
                     />
 
                     <label htmlFor="password">Contraseña</label>
@@ -159,11 +160,5 @@ function parseJwt(token) {
     return null;
   }
 }
-
-const roleMap = {
-  1: "Admin",
-  2: "Entrenador",
-  3: "Deportista"
-};
 
 export default Login;
