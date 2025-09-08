@@ -53,18 +53,18 @@
 }
 
 /* Botones para cambio de mes */
-button {
-  cursor: pointer;
-  padding: 5px 10px;
-  font-size: 0.9em;
+.month-selector button {
   background-color: var(--TM-Pro-1-c);
   border: none;
-  border-radius: 4px;
+  padding: 5px 10px;
   color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9em;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.month-selector button:hover {
   background-color: var(--TM-Pro-1-o);
 }
 

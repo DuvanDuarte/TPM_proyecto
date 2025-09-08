@@ -115,14 +115,14 @@
 }
 
 .add-training-button {
-  margin-top: 15px;
   background-color: white;
   border: none;
   padding: 12px 24px;
   color: #e63946;
-  font-weight: 700;
-  border-radius: 6px;
   cursor: pointer;
+  border-radius: 6px;
+  font-weight: 700;
+  margin-top: 15px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 

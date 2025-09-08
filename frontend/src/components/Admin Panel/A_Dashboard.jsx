@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { roleMap } from "../../utils/roles";
+import RegisterForm from "./RegisterForm";
 
 const A_Dashboard = () => {
-  const [showForm, setShowForm] = useState(false);
   const [userCounts, setUserCounts] = useState({});
+  const [showForm, setShowForm] = useState(false);
+
   const toggleForm = () => setShowForm(prev => !prev);
 
   useEffect(() => {
@@ -52,7 +54,7 @@ const A_Dashboard = () => {
 
       <div className="dashboard-container">
 
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
+        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 1000: 2, 1200: 3 }}>
           <Masonry gutter="30px">
             {cardsData.map(card => (
               <div key={card.id} className="card summary-card">
@@ -76,20 +78,8 @@ const A_Dashboard = () => {
           </Masonry>
         </ResponsiveMasonry>
 
-        {showForm && (
-          <div className="modal-backdrop" onClick={toggleForm}>
-            <div className="login-form-container" onClick={(e) => e.stopPropagation()}>
-              <h2>Registrar Usuario</h2>
-              <form action="" method="post" onSubmit={() => { }}>
-                {/* Formulario aquí */}
-                <button onClick={toggleForm} className="submit-button">
-                  Entrar
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
-      </div>
+        {showForm && <RegisterForm toggleForm={toggleForm} />}
+      </div >
     </>
   );
 };

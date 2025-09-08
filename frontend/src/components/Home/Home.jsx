@@ -9,15 +9,19 @@ import Reports from "../Entrenador Panel/Reports";
 import Profile from "../Profile/Profile";
 import Users from "../Admin Panel/Users";
 
-const Home = ({ userRole }) => {
+const Home = ({ userRole, userData }) => {
     const [activePanel, setActivePanel] = useState("dashboard");
 
-    // Opciones según rol o vacío si no hay rol válido
-    const options = userPanels[userRole] || [];
+    // Aseguramos que el componente Profile recibe userData
+    const options = userPanels[userRole]?.map(panel => {
+        if (panel.key === "profile") {
+            return { ...panel, component: React.cloneElement(panel.component, { user: userData }) };
+        }
+        return panel;
+    }) || [];
 
     return (
         <div className="container">
-            {/* Sidebar */}
             <nav className="sidebar">
                 <h2 className="sidebar-title">Panel {userRole}</h2>
                 {options.map(({ key, label }) => (

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { roleMap } from '../../utils/roles';
-import "./Users.css";
+import { formatDate } from '../../utils/formatDate';
+import "../../ui/tables.css";
+import RegisterForm from "./RegisterForm";
 
 
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showForm, setShowForm] = useState(false);
+
+    const toggleForm = () => setShowForm(prev => !prev);
 
     useEffect(() => {
         // Cambia la URL por la de tu backend
@@ -35,13 +40,18 @@ const Users = () => {
         <>
             <h1>Usuarios</h1>
             <p>Gestión de usuarios: agregar, editar y ver información.</p>
-            <table className="users-table">
+            <button onClick={toggleForm} className="add-training-button">
+                + Nuevo usuario
+            </button>
+            {showForm && <RegisterForm toggleForm={toggleForm} />}
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Documento</th>
                         <th>Nombre</th>
-                        <th>Tipo Usuario</th>
+                        <th>Email</th>
                         <th>Fecha Nacimiento</th>
+                        <th>Tipo Usuario</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,8 +59,9 @@ const Users = () => {
                         <tr key={user.documento}>
                             <td>{user.documento}</td>
                             <td>{user.nombre}</td>
-                            <td>{roleMap[user.idTipoUsuario]}</td>
+                            <td>{user.email}</td>
                             <td>{formatDate(user.fechaNacimiento)}</td>
+                            <td>{roleMap[user.idTipoUsuario]}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -58,14 +69,5 @@ const Users = () => {
         </>
     );
 };
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const day = date.getDate().toString().padStart(2, "0");
-  const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
-}
 
 export default Users;

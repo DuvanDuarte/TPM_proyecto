@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { ping } = require('../controllers/pingController')
-const { login } = require('../controllers/loginController')
-const { register } = require('../controllers/registerController');
-const { getAllUsers } = require('../controllers/userController');
+const { getAllUsers, login, register } = require('../controllers/userController');
 
 router.get('/ping', ping);
 router.post('/login', login);

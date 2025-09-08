@@ -1,6 +1,5 @@
 import Home from "../Home/Home";
 import "./Login.css";
-import "../../../src/assets/animations.css"
 import { useState, useEffect } from "react";
 import { roleMap } from '../../utils/roles';
 
@@ -11,20 +10,18 @@ const Login = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [loginSuccesful, setLoginSuccesful] = useState(false);
+  const [userData, setUserData] = useState(null);
   const toggleForm = () => setShowForm(prev => !prev);
   const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
-    console.log("userRole cambió a:", userRole);
+    console.log("userRole cambió a:", userRole); //Aparece el nuevo rol loggeado
   }, [userRole]);
 
   const handdleLogin = (e) => {
     e.preventDefault();
-    const data = {
-      documento: documento,
-      password: password,
-    };
+    const data = { documento, password };
     fetch("http://localhost:5000/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,14 +29,13 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("Token:", result.token);
+        console.log("Token:", result.token); //Aparece en web el token
 
         if (result.token) {
           localStorage.setItem("token", result.token);
-
           const decoded = parseJwt(result.token);
           console.log("Datos decodificados del token:", decoded); // <-- Aquí imprimes todo el contenido
-
+          setUserData(decoded); // Guardamos todo el payload del token
           const roleName = roleMap[decoded?.idRol] || null; // Convertir número a texto
           setUserRole(roleName);
 
@@ -60,7 +56,7 @@ const Login = () => {
   return (
     <>
       {loginSuccesful ? (
-        <Home userRole={userRole} />
+        <Home userRole={userRole} userData={userData} />
       ) : (
         <>
           <header>
@@ -72,7 +68,7 @@ const Login = () => {
             <nav className={`menu ${menuOpen ? "open" : ""}`}>
               <a href="#" onClick={closeMenu}>Inicio</a>
               <a href="#" onClick={closeMenu}>Contacto</a>
-              <a href="#IniciarSesion" onClick={closeMenu}>Iniciar Sesion</a>
+              <a href="#IniciarSesion" onClick={toggleForm}>Iniciar Sesion</a>
               <span className="esconder-menu" onClick={closeMenu}>
                 &#215;
               </span>
@@ -88,10 +84,11 @@ const Login = () => {
             <button onClick={toggleForm} className="login-toggle-button">
               Iniciar Sesión
             </button>
+
             {showForm && (
               <div className="modal-backdrop" onClick={toggleForm}>
                 <div
-                  className="login-form-container"
+                  className="form-container single-column"
                   onClick={e => e.stopPropagation()} // evitar cerrar al click dentro del form
                 >
                   <h2>Iniciar Sesión</h2>
@@ -100,27 +97,29 @@ const Login = () => {
                     method="post"
                     onSubmit={handdleLogin}
                   >
-                    <label htmlFor="documento">Documento</label>
-                    <input
-                      type="text"
-                      id="documento"
-                      name="documento"
-                      value={documento}
-                      onChange={(event) => setDocumento(event.target.value)}
-                      required
-                      placeholder="Ingrese su documento"
-                    />
+                    <div className="form-group">
+                      <label htmlFor="documento">Documento</label>
+                      <input
+                        type="text"
+                        id="documento"
+                        name="documento"
+                        value={documento}
+                        onChange={(event) => setDocumento(event.target.value)}
+                        required
+                        placeholder="Ingrese su documento"
+                      /></div>
 
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      value={password}
-                      onChange={(event) => setPassword(event.target.value)}
-                      required
-                      placeholder="Ingrese su contraseña"
-                    />
+                    <div className="form-group">
+                      <label htmlFor="password">Contraseña</label>
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        required
+                        placeholder="Ingrese su contraseña"
+                      /></div>
 
                     <div className="forgot-password">
                       <a href="#">¿Olvidaste tu contraseña?</a>

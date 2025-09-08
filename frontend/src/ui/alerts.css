@@ -1,0 +1,14 @@
+.error-message {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #f8d7da; /* fondo rojo claro */
+  color: #842029; /* texto rojo oscuro */
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-weight: 600;
+  border: 1px solid #f5c2c7;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(216, 62, 62, 0.2);
+}
