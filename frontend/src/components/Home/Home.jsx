@@ -76,6 +76,10 @@ const userPanels = {
         { key: "profile", label: "Profile", component: <Profile /> },
         { key: "dashboard", label: "Dashboard", component: <D_Dashboard /> },
         { key: "schedule", label: "Horarios", component: <Schedule /> },
+    ],
+    Profesional: [
+        { key: "profile", label: "Profile", component: <Profile /> },
+        { key: "schedule", label: "Horarios", component: <Schedule /> },
     ]
 };
 

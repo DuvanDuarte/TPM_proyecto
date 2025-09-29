@@ -8,6 +8,7 @@ const RegisterForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmarC, setConfirmarC] = useState("");
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -17,6 +18,11 @@ const RegisterForm = ({ toggleForm }) => {
 
     if (documento !== confirmarD) {
       setErrorMsg("Los documentos no coinciden.");
+      return;
+    }
+
+    if (password !== confirmarC) {
+      setErrorMsg("Las contraseñas no coinciden.");
       return;
     }
 
@@ -37,11 +43,17 @@ const RegisterForm = ({ toggleForm }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       });
-      if (!res.ok) throw new Error("Error al registrar usuario");
+
+      if (!res.ok) {
+        // Leer el mensaje de error enviado por el backend en JSON
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Error al registrar usuario");
+      }
       toggleForm(); // cerrar modal tras éxito
+      window.location.reload()
     } catch (error) {
       console.error(error.message);
-      setErrorMsg("Error al registrar usuario"); // opcional, mostrar error
+      setErrorMsg(error.message); // mostrar mensaje del backend en formulario
     }
   };
 
@@ -117,6 +129,22 @@ const RegisterForm = ({ toggleForm }) => {
           </div>
 
           <div className="form-group">
+            <label htmlFor="tipoUsuario">Tipo de Usuario:</label>
+            <select
+              id="tipoUsuario"
+              name="tipoUsuario"
+              value={tipoUsuario}
+              onChange={(e) => setTipoUsuario(e.target.value)}
+              required
+            >
+              <option value="">Seleccione una opción</option>
+              <option value="2">Entrenador</option>
+              <option value="3">Deportista</option>
+              <option value="4">Preparador Fisico</option>
+            </select>
+          </div>
+
+          <div className="form-group">
             <label htmlFor="password">Contraseña:</label>
             <input
               type="password"
@@ -130,18 +158,16 @@ const RegisterForm = ({ toggleForm }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="tipoUsuario">Tipo de Usuario:</label>
-            <select
-              id="tipoUsuario"
-              name="tipoUsuario"
-              value={tipoUsuario}
-              onChange={(e) => setTipoUsuario(e.target.value)}
+            <label htmlFor="password">Confirmar Contraseña:</label>
+            <input
+              type="password"
+              id="confirmarC"
+              name="confirmarC"
+              value={confirmarC}
+              onChange={(e) => setConfirmarC(e.target.value)}
               required
-            >
-              <option value="">Seleccione una opción</option>
-              <option value="2">Entrenador</option>
-              <option value="3">Deportista</option>
-            </select>
+              placeholder="Confirme la contraseña"
+            />
           </div>
 
           <button type="submit" className="submit-button">

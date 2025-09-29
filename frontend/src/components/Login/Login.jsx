@@ -29,18 +29,16 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("Token:", result.token); //Aparece en web el token
 
         if (result.token) {
           localStorage.setItem("token", result.token);
           const decoded = parseJwt(result.token);
-          console.log("Datos decodificados del token:", decoded); // <-- Aquí imprimes todo el contenido
           setUserData(decoded); // Guardamos todo el payload del token
           const roleName = roleMap[decoded?.idRol] || null; // Convertir número a texto
           setUserRole(roleName);
 
           if (roleName) {
-            console.log("Rol válido, login exitoso:", roleName);
+            console.log("Rol válido, login exitoso:");
             setLoginSuccesful(true);
           } else {
             console.log("Rol inválido o no encontrado");

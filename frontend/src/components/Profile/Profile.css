@@ -2,10 +2,8 @@
   background-color: #16222a;
   border-radius: 16px;
   padding: 5px 30px 30px 30px;
-  max-width: 1300px;
-  margin: auto;
+  max-width: 1000px;
   color: #e9f1fb;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /*MODAL*/
@@ -13,8 +11,6 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
@@ -57,9 +53,9 @@
   grid-template-rows: repeat(3, auto);
   grid-gap: 24px;
   grid-template-areas:
-    "main main social"
-    "contact description certifications"
-    "stats description certifications";
+    "main button social"
+    "contact description description"
+    "stats certifications certifications";
 }
 
 .profile-main {
@@ -88,6 +84,7 @@
   color: #4FDFFF;
   font-weight: 600;
   letter-spacing: 0.6px;
+  text-transform: uppercase;
 }
 
 
@@ -211,10 +208,9 @@
 
 /*Botón Editar Perfil*/
 .profile-edit-button {
-  grid-column: 1 / -1;  /* Ocupa todo el ancho del grid */
   display: flex;
-  justify-content: center; /* Centra el botón horizontalmente */
-  margin-top: 20px;
+  align-items: center;
+
 }
 
 .profile-edit-button button {

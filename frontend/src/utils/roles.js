@@ -2,5 +2,6 @@
 export const roleMap = {
   1: "Admin",
   2: "Entrenador",
-  3: "Deportista"
+  3: "Deportista",
+  4: "Profesional"
 };

@@ -1,10 +1,18 @@
-import React,  { useState } from "react";
+import React, { useState } from "react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import "./Profile.css";
 
 
-const Profile = () => {
+const Profile = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
+  const [documento, setDocumento] = useState("");
+  const [password, setPassword] = useState("");
+
+  const toggleForm = () => setShowForm(prev => !prev);
+
+
 
   return (
     <>
@@ -13,10 +21,48 @@ const Profile = () => {
           <h2>INFORMACIÓN PERSONAL</h2>
 
           <div className="profile-grid">
-            {/* Botón Editar Perfil */}
-            <div className="profile-edit-button">
-              <button onClick={() => alert("Editar perfil")}>Editar perfil</button>
-            </div>
+            {showForm && (
+              <div className="modal-backdrop" onClick={toggleForm}>
+                <div
+                  className="form-container single-column"
+                  onClick={e => e.stopPropagation()} // evitar cerrar al click dentro del form
+                >
+                  <h3>Editar informacion personal</h3>
+                  <form
+                    action="/login"
+                    method="post"
+                    onSubmit={''}
+                  >
+                    <div className="form-group">
+                      <label htmlFor="documento">Documento</label>
+                      <input
+                        type="text"
+                        id="documento"
+                        name="documento"
+                        value={documento}
+                        onChange={(event) => setDocumento(event.target.value)}
+                        required
+                        placeholder="Ingrese su documento"
+                      /></div>
+
+                    <div className="form-group">
+                      <label htmlFor="password">Contraseña</label>
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        required
+                        placeholder="Ingrese su contraseña"
+                      /></div>
+
+
+                    <button type="submit" className="submit-button">Guardar Cambios</button>
+                  </form>
+                </div>
+              </div>
+            )}
 
             {/* Foto, nombre y rol */}
             <div className="profile-main">
@@ -27,10 +73,9 @@ const Profile = () => {
                 onClick={() => setIsModalOpen(true)}
               />
               <div className="profile-name-role">
-                <h3>NOMBRE</h3>
+                <h3>{user.nombre}</h3>
                 <p className="role">
-                  ROL<br/>
-                  FITNESS COACH
+                  {user?.rol || "Rol no disponible"}
                 </p>
               </div>
             </div>
@@ -38,8 +83,8 @@ const Profile = () => {
             {/* Contacto */}
             <div className="profile-contact card2">
               <h4>CONTACTO</h4>
-              <p><span className="icon-email"></span> name@example.com</p>
-              <p><span className="icon-phone"></span> +57 000 000 000</p>
+              <p><span className="icon-email"></span> {user?.email || "email@example.com"}</p>
+              <p><span className="icon-phone"></span> {user?.telefono || "+57 000 000 000"}</p>
             </div>
 
             {/* Estadísticas */}
@@ -61,10 +106,7 @@ const Profile = () => {
             <div className="profile-description card2">
               <h4>INFORMACIÓN</h4>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam quaerat, 
-                maiores placeat vero veniam inventore eveniet cum exercitationem quam cupiditate iste 
-                reprehenderit a, dicta laborum consequuntur quo sequi at beatae. Quae quis tempora quod corporis 
-                error commodi quam enim molestiae.
+                {user?.descripcion || "Sin información adicional disponible."}
               </p>
             </div>
 
@@ -94,6 +136,11 @@ const Profile = () => {
             </div>
 
           </div>
+
+          <div className="profile-edit-button">
+            <button onClick={toggleForm}>Editar perfil</button>
+          </div>
+
         </section>
         {/* Modal de imagen perfil */}
         {isModalOpen && (

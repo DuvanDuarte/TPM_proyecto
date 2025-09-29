@@ -23,7 +23,7 @@ module.exports.login = (req, res) => {
     const consult = 'SELECT * FROM usuarios WHERE documento = ?';
 
     try {
-        connection.query(consult, [documento], async  (err, result) => {
+        connection.query(consult, [documento], async (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
@@ -67,22 +67,36 @@ module.exports.register = async (req, res) => {
     }
 
     try {
-        // Encriptar la contraseña
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds)
+        // Primero verificamos si el documento ya existe
+        const checkQuery = 'SELECT documento FROM usuarios WHERE documento = ?';
+        connection.query(checkQuery, [documento], async (err, results) => {
+            if (err) {
+                console.error('Error al verificar documento:', err);
+                return res.status(500).json({ message: 'Error al verificar documento' });
+            }
 
-        // Consulta para insertar usuario
-        const query = `
+            if (results.length > 0) {
+                // Documento ya registrado
+                return res.status(409).json({ message: 'El documento ya está en uso' });
+            } else {
+                // Encriptar la contraseña
+                const saltRounds = 10;
+                const hashedPassword = await bcrypt.hash(password, saltRounds)
+
+                // Consulta para insertar usuario
+                const query = `
       INSERT INTO usuarios (documento, nombre, email, fechaNacimiento, password, idTipoUsuario)
       VALUES (?, ?, ?, ?, ?, ?)
     `;
 
-        connection.query(query, [documento, nombre, email, fechaNacimiento, hashedPassword, idTipoUsuario], (err, result) => {
-            if (err) {
-                console.error('Error al crear usuario:', err);
-                return res.status(500).json({ message: 'Error al crear usuario' });
+                connection.query(query, [documento, nombre, email, fechaNacimiento, hashedPassword, idTipoUsuario], (err, result) => {
+                    if (err) {
+                        console.error('Error al crear usuario:', err);
+                        return res.status(500).json({ message: 'Error al crear usuario' });
+                    }
+                    res.status(201).json({ message: 'Usuario creado correctamente', userId: result.insertId });
+                });
             }
-            res.status(201).json({ message: 'Usuario creado correctamente', userId: result.insertId });
         });
     } catch (error) {
         console.error('Error en el servidor:', error);
