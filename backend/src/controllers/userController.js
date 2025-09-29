@@ -107,11 +107,6 @@ module.exports.register = async (req, res) => {
 module.exports.editUser = (req, res) => {
     const { documento, nombre, email, fechaNacimiento, idTipoUsuario } = req.body;
 
-    // Validar rol (solo idTipoUsuario === 1 puede editar)
-    if (idTipoUsuario !== 1) {
-        return res.status(403).json({ message: 'No autorizado para editar usuario' });
-    }
-
     // Validar campos obligatorios para la edición
     if (!documento || !nombre || !email || !fechaNacimiento) {
         return res.status(400).json({ message: 'Faltan datos obligatorios' });

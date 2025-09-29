@@ -17,7 +17,7 @@ const E_Dashboard = () => {
         users.forEach((user) => {
           const roleName = roleMap[user.idTipoUsuario];
           counts[roleName] = (counts[roleName] || 0) + 1;
-        }); 
+        });
         setUserCounts(counts);
       })
       .catch((err) => console.error("Error fetching users:", err));
@@ -74,13 +74,14 @@ const E_Dashboard = () => {
 
             <div className="card add-training-card">
               <h2>Añadir Entrenamiento</h2>
-              <button className="add-training-button" onClick={toggleForm}>+ Nuevo entrenamiento</button>
-              {showForm && <TrainingForm toggleForm={toggleForm} />}
+              <button onClick={toggleForm} className="add-training-button">
+                + Nuevo entrenamiento
+              </button>
             </div>
           </Masonry>
-
         </ResponsiveMasonry>
 
+        {showForm && <TrainingForm toggleForm={toggleForm} />}
       </div>
     </>
   );

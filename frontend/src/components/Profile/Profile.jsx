@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { roleMap } from '../../utils/roles';
 import "./Profile.css";
 
 
@@ -7,12 +8,34 @@ const Profile = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
-  const [documento, setDocumento] = useState("");
-  const [password, setPassword] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const roleName = roleMap[user.idRol] || "Rol no disponible";
 
   const toggleForm = () => setShowForm(prev => !prev);
 
+  useEffect(() => {
+    if (user) {
+      setNombre(user.nombre || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const updatedData = {
+      nombre,
+      email,
+      // otros campos editables que quieras agregar
+    };
+
+    console.log("Datos a enviar:", updatedData);
+
+    // Aquí harías la llamada para actualizar la información en backend
+
+    toggleForm(); // cerrar formulario
+  };
 
   return (
     <>
@@ -21,6 +44,8 @@ const Profile = ({ user }) => {
           <h2>INFORMACIÓN PERSONAL</h2>
 
           <div className="profile-grid">
+
+            {/* Editar datos personales */}
             {showForm && (
               <div className="modal-backdrop" onClick={toggleForm}>
                 <div
@@ -29,9 +54,9 @@ const Profile = ({ user }) => {
                 >
                   <h3>Editar informacion personal</h3>
                   <form
-                    action="/login"
+                    action=""
                     method="post"
-                    onSubmit={''}
+                    onSubmit={handleSubmit}
                   >
                     <div className="form-group">
                       <label htmlFor="documento">Documento</label>
@@ -39,24 +64,35 @@ const Profile = ({ user }) => {
                         type="text"
                         id="documento"
                         name="documento"
-                        value={documento}
-                        onChange={(event) => setDocumento(event.target.value)}
-                        required
-                        placeholder="Ingrese su documento"
+                        value={user.documento}
+                        disabled // Campo no editable
                       /></div>
 
                     <div className="form-group">
-                      <label htmlFor="password">Contraseña</label>
+                      <label htmlFor="nombre">Nombre</label>
                       <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
                         required
-                        placeholder="Ingrese su contraseña"
-                      /></div>
+                        placeholder="Ingrese su nombre"
+                      />
+                    </div>
 
+                    <div className="form-group">
+                      <label htmlFor="email">Correo electrónico</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        placeholder="Ingrese su email"
+                      />
+                    </div>
 
                     <button type="submit" className="submit-button">Guardar Cambios</button>
                   </form>
@@ -75,7 +111,7 @@ const Profile = ({ user }) => {
               <div className="profile-name-role">
                 <h3>{user.nombre}</h3>
                 <p className="role">
-                  {user?.rol || "Rol no disponible"}
+                  {roleName || "Rol no disponible"}
                 </p>
               </div>
             </div>

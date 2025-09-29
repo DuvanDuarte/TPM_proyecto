@@ -16,6 +16,11 @@ const RegisterForm = ({ toggleForm }) => {
   const manejarSubmit = async (e) => {
     e.preventDefault();
 
+    if (!email.includes("@")) {
+      setErrorMsg("El correo debe contener el símbolo '@'.");
+      return;
+    }
+
     if (documento !== confirmarD) {
       setErrorMsg("Los documentos no coinciden.");
       return;
@@ -85,7 +90,7 @@ const RegisterForm = ({ toggleForm }) => {
               value={confirmarD}
               onChange={(e) => setConfirmarD(e.target.value)}
               required
-              placeholder="Documento nuevamente"
+              placeholder="Confirme el documento"
             />
           </div>
 
@@ -158,7 +163,7 @@ const RegisterForm = ({ toggleForm }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Confirmar Contraseña:</label>
+            <label htmlFor="confirmarC">Confirmar Contraseña:</label>
             <input
               type="password"
               id="confirmarC"
