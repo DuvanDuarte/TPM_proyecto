@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { roleMap } from "../../utils/roles";
+import TrainingForm from "./TrainingForm";
 
 const E_Dashboard = () => {
+  const [showForm, setShowForm] = useState(false);
+
+  const toggleForm = () => setShowForm((prev) => !prev);
+
   const [userCounts, setUserCounts] = useState({});
   useEffect(() => {
     fetch("http://localhost:5000/users") // Cambia por tu URL real
@@ -12,7 +17,7 @@ const E_Dashboard = () => {
         users.forEach((user) => {
           const roleName = roleMap[user.idTipoUsuario];
           counts[roleName] = (counts[roleName] || 0) + 1;
-        });
+        }); 
         setUserCounts(counts);
       })
       .catch((err) => console.error("Error fetching users:", err));
@@ -69,9 +74,11 @@ const E_Dashboard = () => {
 
             <div className="card add-training-card">
               <h2>Añadir Entrenamiento</h2>
-              <button className="add-training-button">+ Nuevo entrenamiento</button>
+              <button className="add-training-button" onClick={toggleForm}>+ Nuevo entrenamiento</button>
+              {showForm && <TrainingForm toggleForm={toggleForm} />}
             </div>
           </Masonry>
+
         </ResponsiveMasonry>
 
       </div>
