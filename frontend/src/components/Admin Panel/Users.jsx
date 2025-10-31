@@ -114,7 +114,8 @@ const Users = () => {
                             <td>{formatDate(user.fechaNacimiento)}</td>
                             <td>{roleMap[user.idTipoUsuario]}</td>
                             <td><button onClick={() => handleEditClick(user)}
-                                className="add-training-button">Editar</button></td>
+                                className="add-training-button table-button">Editar</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

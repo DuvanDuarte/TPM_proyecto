@@ -21,3 +21,15 @@ module.exports.createTraining = (req, res) => {
     res.status(201).json({ message: 'Entrenamiento creado correctamente', trainingId: result.insertId });
   });
 };
+
+module.exports.getAllTrainings = (req, res) => {
+  const query = `SELECT idEntrenamiento, nombreEnt, idModalidad, descripcion FROM entrenamientos`;
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error al obtener entrenamientos:', err);
+      return res.status(500).json({ message: 'Error en la base de datos' });
+    }
+    res.status(200).json(results);
+  });
+};

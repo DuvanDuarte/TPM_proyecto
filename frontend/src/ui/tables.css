@@ -30,3 +30,8 @@
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
   background-color: var(--TM-Pro-1-c);
 }
+
+.table-button{
+  margin: 0;
+  padding: 0.4rem 1.5rem;
+}

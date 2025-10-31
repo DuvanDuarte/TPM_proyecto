@@ -51,7 +51,7 @@ const TrainingForm = ({ toggleForm }) => {
   return (
     <div className="modal-backdrop" onClick={toggleForm}>
       {errorMsg && <p className="error-message">{errorMsg}</p>}
-      <div className="form-container" onClick={(e) => e.stopPropagation()}>
+      <div className="form-container single-column" onClick={(e) => e.stopPropagation()}>
         <h2>Crear Entrenamiento</h2>
         <form onSubmit={manejarSubmit}>
           <div className="form-group">
