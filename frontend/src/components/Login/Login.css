@@ -9,9 +9,9 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  height: 4rem;
+  height: 5rem;
   background: rgb(20, 20, 20);
-  color: rgb(116, 116, 116);
+  color: rgb(126, 126, 126);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,14 +19,61 @@ header {
   font-size: 0.8rem;
   letter-spacing: 0.1rem;
   z-index: 100;
+  background: rgba(20, 20, 20, 0.7); /* mismo color, pero con transparencia */
+  backdrop-filter: blur(6px); /* desenfoque elegante */
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.resaltado {
+  background: linear-gradient(90deg, #ff1b1b, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .logo {
-  margin-left: 6rem;
-  text-transform: uppercase;
-  color: #f6393b;
-  font-weight: 700;
-  font-style: normal;
+
+  position: relative;
+  width: 130px;     
+  height: auto;
+  margin-left: 2rem;
+  margin-right: 4rem;
+}
+
+.frase-contenedor {
+  position: absolute;
+  top: 57rem;
+  left: 5%;
+  transform: translateY(-50%);
+  width: 35%;
+  padding: 2rem 2rem;
+  text-align: center;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.comillas {
+  font-size: 3rem;
+  color: #ec300f;
+  line-height: 1;
+}
+
+.frase-texto {
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 500;
+  margin: 1rem 0;
+  transition: opacity 0.8s ease;
+}
+
+.autor {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+  transition: opacity 0.8s ease;
+}
+
+.fade-out {
+  opacity: 0;
 }
 
 nav {
@@ -36,6 +83,11 @@ nav {
 .menu.open {
   left: 0;
 }
+.menu {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
 
 .menu a {
   color: rgb(179, 179, 179);
@@ -43,6 +95,10 @@ nav {
   text-decoration: none;
   padding: 0 1.5rem;
   transition: 0.4s;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: 'Cabin', sans-serif;
 }
 
 .mostrar-menu,
@@ -108,28 +164,13 @@ section {
 
 .seccion1 {
   padding-top: 4rem; /* mismo alto que el header */
-  background-color: rgb(37, 37, 37);
+  background-color: rgb(20, 20, 20);
   height: 70vh;
-  /* Imagen de fondo */
-  background-image: url("/src/assets/images/abs.svg");
   background-position: top;
   background-size: cover;
   color: white; /* Para que el texto contrasté mejor con la imagen */
 }
-.seccion1::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 90vh;
-  background-color: rgba(
-    20,
-    20,
-    20,
-    0.6
-  ); /* Capa opaca, ajusta el alpha para más/menos opacidad */
-}
+
 .deportista {
   z-index: 10;
   position: absolute;
@@ -137,60 +178,275 @@ section {
   right: 3rem;
   width: 50%;
   height: auto;
-  animation: slideInFromLeft 1s ease forwards;
-  /* Sombra alrededor del contorno (fondo transparente) */
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7));
-  border-radius: 8px; /* opcional */
 }
 .title1 {
-  font-size: 9rem;
+  font-size: 7.5rem;
   position: relative;
-  left: -14rem;
+  top: 2rem;
+  left: -15rem;
+  line-height: 0.9;
   animation: slideInFromLeft 0.5s ease forwards;
   color: #ffffff;
   /*text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 20px #000000; */
 }
 /*Sección del login*/
 .seccion2 {
-  background-color: #727272;
+  background-color: rgb(20, 20, 20);
 }
+
+.divisor {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0px; /* elimina líneas blancas entre secciones */
+  z-index: 2;
+  pointer-events: none; /* no interfiere con clics */
+}
+
+/*Sección 3*/
+.seccion3 {
+  background-color: #ffffff;
+  color: rgb(20, 20, 20);
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative;
+  display: block;
+}
+
+.seccion3 h2 {
+  font-size: 4rem;
+  font-weight: 900;
+  font-family: 'Bebas Neue', sans-serif;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.eventos-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+
+/* Contenedor de eventos */
+.eventos-container {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  max-height: 600px;
+  overflow-y: auto; /* permite scroll vertical */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+
+/* Tarjetas */
+.evento-card {
+  position: relative;
+  width: 80%;
+  max-width: 50rem;
+  background-color: #1c1c1c; /* fondo neutro */
+  border: 1px solid #f00;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+/* Hover de la tarjeta */
+.evento-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+  border-color: #ff8c00;
+  z-index: 5;
+}
+
+/* Fondo con imagen (oculto por defecto) */
+.evento-card .evento-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/src/assets/images/evento.svg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0; /* invisible inicialmente */
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Aparece la imagen al pasar el mouse */
+.evento-card:hover .evento-bg {
+  opacity: 0.6;
+}
+
+/* Información del evento */
+.evento-info {
+  position: relative;
+  text-align: left;
+  z-index: 2;
+}
+
+.evento-fecha {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffcc00;
+  margin-bottom: 0.3rem;
+}
+
+.evento-card h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.evento-card p {
+  color: #ccc;
+  font-size: 1.5rem;
+}
+
+/* Botón flecha lateral */
+.evento-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.evento-btn:hover {
+  transform: translateX(5px);
+}
+
+
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
+}
+/*Final Sección 3*/
+
+/*Sección 4*/
+.seccion4 {
+  background-color: rgb(20, 20, 20);
+  color: #ffffff;
+  padding: 5rem 6%;
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.3;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  height: auto;
+}
+
+.contacto-contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contacto-texto {
+  flex: 1;
+  min-width: 300px;
+  max-width: 520px;
+}
+
+.contacto-titulo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.contacto-descripcion {
+  color: #ccc;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.contacto-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contacto-item h3 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e63946;
+}
+
+.contacto-item p,
+.contacto-item a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.contacto-item a:hover {
+  color: #e63946;
+  text-decoration: underline;
+}
+
+.contacto-mapa {
+  flex: 1;
+  min-width:300;
+}
+
+.contacto-mapa iframe {
+  width: 100%;
+  height: 350px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  border: none;
+}
+
+/*Fin Sección 4*/
+
+
+footer{
+    margin-top: 0;
+    background: rgb(20, 20, 20);
+    color: rgb(78, 77, 77);
+    text-align: center;
+    padding: 20px 0;
+    padding-top: 5rem;
+}
+
 .login-toggle-button {
   position: relative;
-  top: -3rem;
-  left: -20rem;
-  padding: 1rem 2rem;
-  font-weight: 600;
-  font-size: 3rem;
-  background-color: #e63946;
+  top: 14.8rem;
+  left: -45.64rem;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: #cc2525;
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s;
   overflow: visible;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
 }
 
 .login-toggle-button:hover {
   background-color: #b92732;
-}
-
-/* Contenedor para partículas */
-.login-toggle-button::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 2rem;
-  height: 0.2rem;
-  pointer-events: none;
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  animation-fill-mode: forwards;
-}
-
-/* Partículas individuales */
-.login-toggle-button:hover::before {
-  animation: particleBurst 0.3s forwards;
 }
 
 .forgot-password {
@@ -253,11 +509,12 @@ section {
     text-align: center;
   }
 
+
   .deportista {
     position: static; /* elimina position absolute */
     top: auto; /* no desplazamiento */
     right: auto;
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
     border-radius: 8px;
     filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.7));

@@ -1,5 +1,5 @@
 .new {
-  background-color: #16222a;
+  background-color: rgb(20, 20, 20);
   border-radius: 16px;
   padding: 5px 30px 30px 30px;
   max-width: 1000px;
@@ -36,7 +36,7 @@
 .personal-info-section h2 {
   margin: 0 0 24px 0;
   padding: 10px 0px 0px 10px;
-  color: #4FDFFF;
+  color: #f0f0f0;
   margin-bottom: 25px;
   letter-spacing: 2px;
   text-align: left;
@@ -70,7 +70,7 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #4FDFFF;
+  border: 3px solid #ca0b0b;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -81,7 +81,7 @@
 }
 
 .role {
-  color: #4FDFFF;
+  color: #ca0b0b;
   font-weight: 600;
   letter-spacing: 0.6px;
   text-transform: uppercase;
@@ -89,7 +89,7 @@
 
 
 .card2 {
-  background-color: #182233;
+  background-color: rgb(20, 20, 20);
   border-radius: 12px;
   padding: 20px;
 }
@@ -135,7 +135,7 @@
 }
 
 .stat-number {
-  color: #4FDFFF;
+  color: #ca0b0b;
   font-weight: 700;
   font-size: 1.5rem;
 }
@@ -201,7 +201,7 @@
   width: 16px;
   height: 16px;
   margin-right: 8px;
-  background-color: #4FDFFF;
+  background-color: #ca0b0b;
   mask: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285 6.708a1 1 0 0 0-1.417-1.416L9 15.162l-4.868-4.868a1 1 0 0 0-1.416 1.416l5.575 5.575a1 1 0 0 0 1.414 0l9.58-9.58z"/></svg>') no-repeat center;
   mask-size: contain;
 }
@@ -214,9 +214,9 @@
 }
 
 .profile-edit-button button {
-  background-color: #4FDFFF;
+  background-color: #ca0b0b;
   border: none;
-  color: #16222a;
+  color: rgb(20, 20, 20);
   font-weight: 700;
   font-size: 1rem;
   padding: 12px 24px;
@@ -226,5 +226,5 @@
 }
 
 .profile-edit-button button:hover {
-  background-color: #39c2ea;
+  background-color: #ca0b0b;
 }
