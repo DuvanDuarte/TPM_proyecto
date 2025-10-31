@@ -71,6 +71,11 @@
   margin-bottom: 1rem;
 }
 
+.summary-card h2 {
+  margin-top: 0;
+  color: #ffb109;
+}
+
 .personal-info-card {
   background-color: #54151A;
 }
@@ -101,6 +106,25 @@
   color: var(--TM-Pro-1-c); /* azul TM-Pro para contraste, o usa verde si prefieres */
   font-weight: 800;
   font-size: 1rem;
+}
+
+.summary-card ul {
+  list-style: none;
+  padding-left: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.summary-card ul li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.summary-card ul li:last-child {
+  border-bottom: none;
 }
 
 .add-training-card {

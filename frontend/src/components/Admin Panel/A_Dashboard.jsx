@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { roleMap } from "../../utils/roles";
 import RegisterForm from "./RegisterForm";
+import EventForm from "./EventForm";
 
 const A_Dashboard = () => {
   const [userCounts, setUserCounts] = useState({});
   const [showForm, setShowForm] = useState(false);
+  const [showFormEvento, setShowFormEvento] = useState(false);
+  const [events, setEvents] = useState([]);
 
   const toggleForm = () => setShowForm(prev => !prev);
+  const toggleFormEvento = () => setShowFormEvento(prev => !prev);
 
   useEffect(() => {
     // Reemplaza '/api/users' con tu URL real del backend
@@ -24,10 +28,24 @@ const A_Dashboard = () => {
       .catch((err) => console.error("Error fetching users:", err));
   }, []);
 
+  const loadEvents = () => {
+    fetch("http://localhost:5000/eventos")
+      .then(res => {
+        if (!res.ok) throw new Error("Error al obtener eventos");
+        return res.json();
+      })
+      .then(data => setEvents(data))
+      .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
   const cardsData = [
     {
       id: 1, icon: "sprint", growth: "+12%", title: "Deportistas",
-      content: <p>Total: {userCounts["Deportista"] || 0} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus provident explicabo fugit amet nesciunt veritatis veniam in, temporibus quis officia eius beatae culpa ratione aliquid delectus? Molestias earum officiis reiciendis corrupti, debitis facilis officia doloremque in obcaecati neque cupiditate consequuntur itaque expedita aut, quas at quam? Aut, facilis pariatur, nisi tempore totam ab at tempora expedita accusamus accusantium modi, saepe adipisci natus odit sit quas cupiditate suscipit aliquam alias et reiciendis illum culpa! Aut nesciunt explicabo sunt dolorum animi dolor soluta repudiandae commodi, nobis alias facere enim tempora libero doloremque repellendus dolorem tenetur? Perferendis omnis eveniet voluptates pariatur quod tenetur maiores illum, laborum exercitationem eaque est facilis, soluta voluptatibus eligendi minima? Voluptatum dolore possimus harum officia, assumenda reprehenderit quos, fuga molestiae temporibus nulla deleniti quia totam veniam. Fuga molestiae provident quidem veniam dolore quasi fugit beatae magnam repellat iure ab eos, sapiente, illo et voluptatum optio nihil aspernatur doloremque. Facere deserunt cupiditate libero ut odio reprehenderit vitae, sapiente delectus ipsa natus qui consequuntur nulla, repellat itaque totam voluptatibus laborum nesciunt aut non omnis, nisi tenetur optio officia quaerat? Corporis nam excepturi minima! Fugit distinctio porro aliquid eum impedit veniam iure velit voluptatum delectus, odit assumenda consequatur placeat doloremque est omnis.</p>,
+      content: <p>Total: {userCounts["Deportista"] || 0}</p>,
     },
     {
       id: 2, icon: "exercise", growth: "+12%", title: "Entrenadores",
@@ -41,8 +59,19 @@ const A_Dashboard = () => {
       id: 4, icon: "calendar_month", growth: "+4%", title: "Eventos",
       content: (
         <>
-          <p>Totales: 6</p>
-          <p>Este mes: 2</p>
+          <p>Totales: {events.length}</p>
+          <p>
+            Este mes:{" "}
+            {events.filter((e) => {
+              // Filtra eventos que son del mes actual
+              const eventDate = new Date(e.fechaEvento ?? e.date);
+              const now = new Date();
+              return (
+                eventDate.getMonth() === now.getMonth() &&
+                eventDate.getFullYear() === now.getFullYear()
+              );
+            }).length}
+          </p>
         </>
       ),
     },
@@ -75,10 +104,17 @@ const A_Dashboard = () => {
                 + Nuevo usuario
               </button>
             </div>
+            <div className="card add-training-card">
+              <h2>Añadir Evento</h2>
+              <button onClick={toggleFormEvento} className="add-training-button">
+                + Nuevo evento
+              </button>
+            </div>
           </Masonry>
         </ResponsiveMasonry>
 
         {showForm && <RegisterForm toggleForm={toggleForm} />}
+        {showFormEvento && <EventForm toggleForm={toggleFormEvento} onCreateSuccess={loadEvents}/>}
       </div >
     </>
   );

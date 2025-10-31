@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Calendar.css"; // Importamos el CSS externo
+import EventForm from "../Admin Panel/EventForm";
+import { roleMap } from "../../utils/roles";
 
 const Calendar = () => {
     // Estado para mes y año seleccionados. Inicializamos con el actual.
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [events, setEvents] = useState([]);
+    const [showFormEvento, setShowFormEvento] = useState(false);
+    const [userRole, setUserRole] = useState(null);
+    const [, setUserData] = useState(null);
+
+    const toggleFormEvento = () => setShowFormEvento(prev => !prev);
 
     // Función para obtener los días del mes seleccionado
     function getDaysInMonth(year, month) {
@@ -17,13 +24,37 @@ const Calendar = () => {
         return days;
     }
 
+    // Cargar usuario desde token al montar
     useEffect(() => {
-        const fakeEvents = [
-            { id: 1, title: "Entrenamiento 1", date: "2025-09-05" },
-            { id: 2, title: "Evento Especial", date: "2025-09-12" },
-            { id: 3, title: "Entrenamiento 2", date: "2025-09-16" },
-        ];
-        setEvents(fakeEvents);
+        const token = localStorage.getItem("token");
+        if (token) {
+            const decoded = parseJwt(token);
+            setUserData(decoded);
+            const roleName = roleMap[decoded?.idRol] || null;
+            setUserRole(roleName);
+        }
+    }, []);
+
+    // Obtener eventos al montar
+    useEffect(() => {
+        fetch("http://localhost:5000/eventos")
+            .then((res) => {
+                if (!res.ok) throw new Error("Error al obtener eventos");
+                return res.json();
+            })
+            .then((data) => {
+                // Supón que data es un array de objetos con { id, title, date }
+                const fetchedEvents = data.map((ev) => ({
+                    id: ev.idEvento ?? ev.id,
+                    title: ev.evento ?? ev.title ?? "Evento",
+                    date: ev.fechaEvento ?? ev.date,
+                }));
+                setEvents(fetchedEvents);
+            })
+            .catch((err) => {
+                console.error(err);
+                // Opcional: manejar error visible en UI
+            });
     }, []);
 
     const days = getDaysInMonth(selectedDate.getFullYear(), selectedDate.getMonth());
@@ -44,6 +75,11 @@ const Calendar = () => {
         <>
             <h1 className="calendarT">Calendario</h1>
             <p>Entrenamientos y eventos programados en el mes</p>
+            {userRole === "Admin" && (
+                <button onClick={toggleFormEvento} className="add-training-button">
+                    + Nuevo Evento
+                </button>
+            )}
 
             <div className="month-selector">
                 <button onClick={prevMonth}>&lt; Mes anterior</button>
@@ -88,8 +124,31 @@ const Calendar = () => {
                     );
                 })}
             </div>
+
+            {showFormEvento && <EventForm toggleForm={toggleFormEvento} />}
         </>
     );
 };
+
+function parseJwt(token) {
+    if (!token) return null;
+    try {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+            window
+                .atob(base64)
+                .split("")
+                .map(function (c) {
+                    return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+                })
+                .join("")
+        );
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        console.error("Error parsing JWT:", e);
+        return null;
+    }
+}
 
 export default Calendar;

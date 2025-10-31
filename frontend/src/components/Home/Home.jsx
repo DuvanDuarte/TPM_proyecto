@@ -5,7 +5,6 @@ import A_Dashboard from "../Admin Panel/A_Dashboard";
 import D_Dashboard from "../Deportista Panel/D_Dashboard";
 import Athletes from "../Entrenador Panel/Athletes";
 import Schedule from "../Admin Panel/Schedule";
-import Reports from "../Entrenador Panel/Reports";
 import Profile from "../Profile/Profile";
 import Users from "../Admin Panel/Users";
 
@@ -63,14 +62,15 @@ const userPanels = {
     Admin: [
         { key: "profile", label: "Datos Personales", component: <Profile /> },
         { key: "dashboard", label: "Panel de Control", component: <A_Dashboard /> },
-        { key: "schedule", label: "Cronograma", component: <Schedule /> },
         { key: "users", label: "Usuarios", component: <Users /> },
+        { key: "schedule", label: "Cronograma", component: <Schedule /> },
         // más opciones admin
     ],
     Entrenador: [
         { key: "profile", label: "Profile", component: <Profile /> },
         { key: "dashboard", label: "Dashboard", component: <E_Dashboard /> },
         { key: "athletes", label: "Deportistas", component: <Athletes /> },
+        { key: "schedule", label: "Cronograma", component: <Schedule /> },
     ],
     Deportista: [
         { key: "profile", label: "Profile", component: <Profile /> },
