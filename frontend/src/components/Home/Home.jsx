@@ -7,6 +7,7 @@ import Athletes from "../Entrenador Panel/Athletes";
 import Schedule from "../Admin Panel/Schedule";
 import Profile from "../Profile/Profile";
 import Users from "../Admin Panel/Users";
+import Trainings from "../Entrenador Panel/Trainings";
 
 const Home = ({ userRole, userData }) => {
     const [activePanel, setActivePanel] = useState("dashboard");
@@ -70,6 +71,7 @@ const userPanels = {
         { key: "profile", label: "Profile", component: <Profile /> },
         { key: "dashboard", label: "Dashboard", component: <E_Dashboard /> },
         { key: "athletes", label: "Deportistas", component: <Athletes /> },
+        { key: "trainings", label: "Entrenamientos", component: <Trainings /> },
         { key: "schedule", label: "Cronograma", component: <Schedule /> },
     ],
     Deportista: [

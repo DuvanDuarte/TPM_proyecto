@@ -11,50 +11,99 @@ const Login = () => {
   const [userRole, setUserRole] = useState(null);
   const [loginSuccesful, setLoginSuccesful] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [eventosProximos, setEventosProximos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const toggleForm = () => setShowForm(prev => !prev);
   const toggleMenu = () => setMenuOpen(prev => !prev);
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
-    console.log("userRole cambió a:", userRole); //Aparece el nuevo rol loggeado
-  }, [userRole]);
+    // Obtenemos los eventos
+    fetch("http://localhost:5000/eventos")
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al obtener eventos");
+        return res.json();
+      })
+      .then((data) => {
+        const fetchedEvents = data.map((ev) => ({
+          id: ev.idEvento ?? ev.id,
+          title: ev.evento ?? ev.title ?? "Evento sin título",
+          date: ev.fechaEvento ?? ev.date, // Asume que 'date' o 'fechaEvento' es una cadena de fecha válida
+        }));
+
+        // Filtra solo los eventos próximos
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0); // Establecer a medianoche para incluir eventos de hoy
+
+        const proximos = fetchedEvents
+          .filter(ev => new Date(ev.date) >= hoy)
+          .sort((a, b) => new Date(a.date) - new Date(b.date)); // Ordena por fecha ascendente
+
+        setEventosProximos(proximos);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("No se pudieron cargar los eventos.");
+        setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
-  const frases = [
-    { texto: "El dolor que sientes hoy será la fuerza que sentirás mañana.", autor: "Anónimo" },
-    { texto: "En la vida hay algo peor que el fracaso: el no haber intentado nada.", autor: "Franklin D. Roosvelt"},
-    { texto: "La disciplina vence al talento cuando el talento no se disciplina.", autor: "Desconocido" },
-    { texto: "El fracaso es éxito si aprendemos de él.",  autor: "Malcolm Forbes"},
-    { texto: "Tu cuerpo puede soportar casi todo. Es tu mente la que debes convencer.", autor: "Anónimo" },
-    { texto: "La mente es todo. Lo que piensas, te conviertes.", autor: "Buda"},
-    { texto: "Cree en ti mismo y serás imparable.", autor: "Anónimo" },
-    { texto: "Quién se rinde ante un problema, no demuestra fuerza ni caracter", autor: "Salomón"},
-    { texto: "Cada día es una nueva oportunidad para mejorar.", autor: "Desconocido" },
-    { texto: "No he fracasado. He encontrado 10.000 formas que no funcionan.", autor: "Thomas Edison" },
+    const frases = [
+      { texto: "El dolor que sientes hoy será la fuerza que sentirás mañana.", autor: "Anónimo" },
+      { texto: "En la vida hay algo peor que el fracaso: el no haber intentado nada.", autor: "Franklin D. Roosvelt" },
+      { texto: "La disciplina vence al talento cuando el talento no se disciplina.", autor: "Desconocido" },
+      { texto: "El fracaso es éxito si aprendemos de él.", autor: "Malcolm Forbes" },
+      { texto: "Tu cuerpo puede soportar casi todo. Es tu mente la que debes convencer.", autor: "Anónimo" },
+      { texto: "La mente es todo. Lo que piensas, te conviertes.", autor: "Buda" },
+      { texto: "Cree en ti mismo y serás imparable.", autor: "Anónimo" },
+      { texto: "Quién se rinde ante un problema, no demuestra fuerza ni caracter", autor: "Salomón" },
+      { texto: "Cada día es una nueva oportunidad para mejorar.", autor: "Desconocido" },
+      { texto: "No he fracasado. He encontrado 10.000 formas que no funcionan.", autor: "Thomas Edison" },
 
-  ];
+    ];
 
-  let index = 0;
-  const fraseEl = document.getElementById("frase-texto");
-  const autorEl = document.querySelector(".autor");
+    let index = 0;
+    const fraseEl = document.getElementById("frase-texto");
+    const autorEl = document.querySelector(".autor");
 
-  const cambiarFrase = () => {
-    if (fraseEl && autorEl) {
-      fraseEl.classList.add("fade-out");
-      autorEl.classList.add("fade-out");
-      setTimeout(() => {
-        index = (index + 1) % frases.length;
-        fraseEl.textContent = frases[index].texto;
-        autorEl.textContent = "— " + frases[index].autor;
-        fraseEl.classList.remove("fade-out");
-        autorEl.classList.remove("fade-out");
-      }, 800);
-    }
+    const cambiarFrase = () => {
+      if (fraseEl && autorEl) {
+        fraseEl.classList.add("fade-out");
+        autorEl.classList.add("fade-out");
+        setTimeout(() => {
+          index = (index + 1) % frases.length;
+          fraseEl.textContent = frases[index].texto;
+          autorEl.textContent = "— " + frases[index].autor;
+          fraseEl.classList.remove("fade-out");
+          autorEl.classList.remove("fade-out");
+        }, 800);
+      }
+    };
+
+    const intervalo = setInterval(cambiarFrase, 6000);
+    return () => clearInterval(intervalo);
+  }, []);
+
+  // Función para formatear la fecha a "MES, DIA"
+  const formatearFecha = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("es-ES", { month: "short", day: "numeric" })
+      .toUpperCase()
+      .replace('.', ''); // Quitamos el punto si el idioma lo incluye
   };
 
-  const intervalo = setInterval(cambiarFrase, 6000);
-  return () => clearInterval(intervalo);
-}, []);
+  // Función para obtener el día de la semana
+  const obtenerDiaSemana = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("es-ES", { weekday: "long" });
+  };
+
+  if (loading) return <section className="seccion3"><p>Cargando eventos...</p></section>;
+  if (error) return <section className="seccion3"><p style={{ color: 'red' }}>{error}</p></section>;
+  if (eventosProximos.length === 0) return <section className="seccion3"><p>No hay próximos eventos programados.</p></section>;
 
   const handdleLogin = (e) => {
     e.preventDefault();
@@ -111,11 +160,14 @@ const Login = () => {
           </header>
 
           <section className="seccion1">
-            <h1 className="title1">Training<br />Master <br /><span className="resaltado">PRO</span></h1>
+            <h1 className="title1">
+              Training<br />Master <br />
+              <span className="resaltado">PRO</span><br />
+              <button onClick={toggleForm} className="login-toggle-button">INICIAR SESIÓN</button>
+            </h1>
+
             <img className="deportista" src="/src/assets/images/corriendo.png" alt="Deportista corriendo" />
-            <button onClick={toggleForm} className="login-toggle-button">
-              INICIAR SESIÓN
-            </button> 
+
           </section>
 
           <section id="IniciarSesion" className="seccion2">
@@ -176,45 +228,33 @@ const Login = () => {
 
           </section>
 
-            <img className="divisor" src="/src/assets/images/divisor.svg" alt="Divisor decorativo" />
+          <img className="divisor" src="/src/assets/images/divisor.svg" alt="Divisor decorativo" />
 
           <section className="seccion3">
             <h2 className="eventos-title">PRÓXIMOS EVENTOS</h2>
 
             <div className="eventos-container" id="eventosContainer">
-              <div className="evento-card">
-                <div className="evento-info">
-                  <div className="evento-fecha">JUN, 6</div>
-                  <h3>Miércoles</h3>
-                  <p>Texto Aquí</p>
+              {/* Mapear los eventos próximos al formato de tarjeta */}
+              {eventosProximos.map((evento) => (
+                <div className="evento-card" key={evento.id}>
+                  <div className="evento-info">
+                    {/* Fecha formateada: JUN, 6 */}
+                    <div className="evento-fecha">{formatearFecha(evento.date)}</div>
+                    {/* Día de la semana: Miércoles */}
+                    <h3>{obtenerDiaSemana(evento.date)}</h3>
+                    {/* Título del evento */}
+                    <p>{evento.title}</p>
+                  </div>
+                  {/* El elemento con fondo, probablemente para efectos visuales */}
+                  <div className="evento-bg"></div>
+                  <button className="evento-btn">›</button>
                 </div>
-                <div className="evento-bg"></div>
-                <button className="evento-btn">›</button>
-              </div>
+              ))}
 
-              <div className="evento-card">
-                <div className="evento-info">
-                  <div className="evento-fecha">JUN, 17</div>
-                  <h3>Lunes</h3>
-                  <p>Texto Aquí</p>
-                </div>
-                <div className="evento-bg"></div>
-                <button className="evento-btn">›</button>
-              </div>
-
-              <div className="evento-card">
-                <div className="evento-info">
-                  <div className="evento-fecha">JUL, 18</div>
-                  <h3>Martes</h3>
-                  <p>Texto Aquí</p> 
-                </div>
-                <div className="evento-bg"></div>
-                <button className="evento-btn">›</button>
-              </div>
             </div>
           </section>
-            
-            <img className="divisor" src="/src/assets/images/divisorvolteado.svg" alt="Divisor decorativo" />
+
+          <img className="divisor" src="/src/assets/images/divisorvolteado.svg" alt="Divisor decorativo" />
 
           <section className="seccion4" id="contacto">
             <div className="contacto-contenedor">
@@ -252,9 +292,9 @@ const Login = () => {
             </div>
           </section>
           <footer>
-              <p>
-                  &copy;2025 Training Master Pro. Todos los derechos reservados.
-              </p>
+            <p>
+              &copy;2025 Training Master Pro. Todos los derechos reservados.
+            </p>
           </footer>
         </>
       )}
